@@ -331,10 +331,10 @@ public class MyUI extends UI {
                     depLocationFlag = 0;
                     consoleLayout.addComponent(new Label("Please click first"));
                 } else {
-                depCoordinate = coordinate;
+                depCoordinate = (Coordinate) coordinate.clone();
                 googleMap.setCenter(new LatLon(Double.parseDouble(depCoordinate.getLat()), 
                         Double.parseDouble(depCoordinate.getLon())));
-                googleMap.setZoom(13);
+                googleMap.setZoom(16);
                 consoleLayout.addComponent(new Label("You choose coordinate (" +
                         depCoordinate.getLat() + "," + depCoordinate.getLon() + 
                         ") as departure location"));
@@ -352,15 +352,29 @@ public class MyUI extends UI {
                     depLocationFlag = 0;
                     consoleLayout.addComponent(new Label("Please click first"));
                 }else{
-                desCoordinate = coordinate;
+                desCoordinate = (Coordinate) coordinate.clone();;
                 googleMap.setCenter(new LatLon(Double.parseDouble(desCoordinate.getLat()), 
                         Double.parseDouble(desCoordinate.getLon())));
-                googleMap.setZoom(13);
+                googleMap.setZoom(16);
                 consoleLayout.addComponent(new Label("You choose coordinate (" +
                         desCoordinate.getLat() + "," + desCoordinate.getLon() + 
                         ") as destination location"));
                 desLocationFlag = 1;
                 }
+            }
+        });
+        Button showDepDesLocation = new Button("Show both location",
+                new Button.ClickListener() {
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+                consoleLayout.addComponent(new Label("You choose coordinate (" +
+                        depCoordinate.getLat() + "," + depCoordinate.getLon() + 
+                        ") as departure location"));
+                
+                consoleLayout.addComponent(new Label("You choose coordinate (" +
+                        desCoordinate.getLat() + "," + desCoordinate.getLon() + 
+                        ") as destination location"));
             }
         });
         //draw line
@@ -481,6 +495,7 @@ public class MyUI extends UI {
         buttonLayoutRow1.addComponent(storeMap);
         buttonLayoutRow1.addComponent(getDepLocation);
         buttonLayoutRow1.addComponent(getDesLocation);
+        buttonLayoutRow1.addComponent(showDepDesLocation);
 //        buttonLayoutRow1.addComponent(addPolyLineButton);
         buttonLayoutRow1.addComponent(searchPlan);
         buttonLayoutRow1.addComponent(resetMapButton);        

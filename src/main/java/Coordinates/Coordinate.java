@@ -10,10 +10,18 @@ package Coordinates;
  * @author troy
  */
 public class Coordinate {
-    String Lat;
-    String Lon;
     
-    public Coordinate(){}
+    private String Lat;
+    private String Lon;
+    
+    public Coordinate(){
+    }
+    
+    public Coordinate(String Lat, String Lon) {
+        this.Lat = Lat;
+        this.Lon = Lon;
+    }
+    
     public void setLat(String lat){
         this.Lat = lat;
     }
@@ -28,6 +36,12 @@ public class Coordinate {
     
     public String getLon(){
         return Lon;
+    }
+    
+    public Object clone() {
+        //deep copy
+        Coordinate coordinate = new Coordinate(Lat, Lon);
+        return coordinate;
     }
 }
 

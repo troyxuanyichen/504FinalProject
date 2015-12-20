@@ -41,6 +41,7 @@ public class TripPlan {
     private ArrayList<Arc> arcList = new ArrayList<>();
     private ArrayList<String> tripIdList = new ArrayList<>();
     private ArrayList<String> arrTimeList = new ArrayList<>();//store arrival time
+    
     public TripPlan() {
     }    
     public TripPlan(ArrayList<ArrayList<Stop>> plans) {
@@ -141,12 +142,11 @@ public class TripPlan {
         String tripIdTemp = null;
 //        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date currentDate = new Date();
-        Date depTime = currentDate;
-        Date MBTADepTime;
-        Date MBTAArrTime = currentDate;
-        Date walkDepTime;
-        Date walkArrTime = currentDate;
-        Double walkTime = 0.0;
+        Date depTime = currentDate;//departure time at a specific location, updated every time when reach a new station
+        Date MBTADepTime;//time when MBTA is able to departure from a station using query
+        Date MBTAArrTime = currentDate;//time when MBTA is estimated to reach the next station using query
+        Date walkArrTime = currentDate;//time to reach the next stop via walk
+        Double walkTime = 0.0;//time take to walk  to next stop
         for (int i = 0; i < path.size(); i ++){//build stopIdList
             stopIdList.add(path.get(i).GetStopID());
         }
@@ -161,9 +161,9 @@ public class TripPlan {
                     break;
                 }
             }
-        }        
+        }
+        //start to calculate the real time
         for (int i = 0; i < path.size()-1; i ++){            
-//            walkArrTime = depTime;
             if (arcList.get(i).GetRouteID().equals("Walk") == false){//calculate MBTA time
                 if ((i > 0)
                         && arcList.get(i).GetRouteID().equals(arcList.get(i-1).GetRouteID())//stay in the same MBTA
@@ -254,24 +254,7 @@ public class TripPlan {
         }        
         return routeSpecialTemp;
     }
-            
-//            while (stopIt.hasNext()){
-//                stopTemp = stopIt.next();
-//                schedultByStopRequest.MBTAConnect2("schedulebystop", stopTemp.GetStopID());
-//                schedultByStopRequest.mapScheduleByStop();
-                //get arc information
-                
-//                tripList = schedultByStopRequest.getScheduleByStop()
-//                String depTimeString = schedultByStopRequest.getScheduleByStop().getMode().get(0).getRouteSpecial().get(0).getDirection().get(0).getTrip().get(0).getSch_dep_dt();
-//                Date depTimeDate = new Date(Long.parseLong(depTimeString) * 1000);    
-//                scheduleByStop = schedultByStopRequest.getScheduleByStop();
-//            }            
-//            if(currentTime < shotestTime){
-//                shotestTime = currentTime;
-//                bestPlan = planTemp;
-//            }
-//        }  
-    
+               
     public LatLonDisCal getCal() {
         return cal;
     }
