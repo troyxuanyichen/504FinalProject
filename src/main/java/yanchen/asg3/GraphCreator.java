@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * @author markieff
  */
 public class GraphCreator {
-    Graph graph = new Graph();
-    MBTAConnection mbta = new MBTAConnection();
-    ArrayList<Route> routes = new ArrayList<Route>();
+    private Graph graph = new Graph();
+    private MBTAConnection mbta = new MBTAConnection();
+    private ArrayList<Route> routes = new ArrayList<Route>();
     
     public Graph Build() throws IOException{
         routes = mbta.StoreArcs();
