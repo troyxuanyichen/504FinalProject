@@ -39,7 +39,7 @@ public class Coordinate {
     }
     
     public Object clone() {
-        //deep copy
+        //shallow copy
         Coordinate coordinate = new Coordinate(Lat, Lon);
         return coordinate;
     }
